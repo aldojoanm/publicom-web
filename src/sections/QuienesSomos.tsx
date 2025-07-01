@@ -5,7 +5,7 @@ import Lottie from 'lottie-react'
 import redAnimation from '@/assets/Lottie/Red.json' // Ajusta la ruta según tu proyecto
 import './QuienesSomos.css'
 
-function TypeWriter({ text, inView, onDone }) {
+function TypeWriter({ text, inView, onDone }: { text: string; inView: boolean; onDone: () => void }) {
   const [displayed, setDisplayed] = useState('')
   const [done, setDone] = useState(false)
 
@@ -53,15 +53,19 @@ export default function Quienes() {
     <motion.div
       className="qs-container"
       id="quienes-somos"
+      ref={ref}
       initial={{ opacity: 0, y: 100 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 1 }}
       viewport={{ once: true, amount: 0.2 }}
     >
       <div className="qs-left">
-        <div ref={ref}>
-          <TypeWriter key="qs-title" text="¿Quiénes SOMOS?" inView={inView} onDone={() => setTextDone(true)} />
-        </div>
+        <TypeWriter
+          key="qs-title"
+          text="¿Quiénes SOMOS?"
+          inView={inView}
+          onDone={() => setTextDone(true)}
+        />
 
         <AnimatePresence>
           {inView && (
@@ -73,8 +77,8 @@ export default function Quienes() {
               transition={{ duration: 0.8, delay: 2 }}
             >
               PUBLICOM es una agencia boliviana con más de 20 años de trayectoria consolidada en comunicación digital,
-              campañas publicitarias, producción audiovisual, diseño gráfico y eventos corporativos. Nos enfocamos en
-              soluciones estratégicas y multicanal adaptadas a las necesidades de cada cliente.
+              campañas publicitarias, producción audiovisual, diseño gráfico y eventos corporativos.<br /><br />
+              Nos enfocamos en soluciones estratégicas y multicanal adaptadas a las necesidades de cada cliente.
             </motion.p>
           )}
         </AnimatePresence>
@@ -103,6 +107,9 @@ export default function Quienes() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Línea divisoria absoluta al final */}
+      <div className="qs-divider" />
     </motion.div>
   )
 }

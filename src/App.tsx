@@ -31,7 +31,6 @@ function Home() {
         <RedesSociales />
         <Eventos />
         <Clientes />
-        <Contacto />
       </main>
     </>
   )
@@ -45,6 +44,7 @@ function App() {
         <Route path="/ecorural" element={<EcoRural />} />
         <Route path="/digitalplus" element={<DigitalPlus />} />
         <Route path="/megaprint" element={<MegaPrint />} />
+        <Route path="/contacto" element={<Contacto />} />
       </Routes>
     </BrowserRouter>
   )

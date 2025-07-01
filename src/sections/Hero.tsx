@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import '../styles/Hero.css'
+import { useLocation } from 'react-router-dom'
 
 export default function Hero() {
   const [showContent, setShowContent] = useState(false)
+  const location = useLocation()
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -13,8 +15,20 @@ export default function Hero() {
     return () => clearTimeout(timer)
   }, [])
 
+  // Scroll al hero si location.state.scrollToHero es true
+  useEffect(() => {
+    if (location.state?.scrollToHero) {
+      const heroSection = document.getElementById('hero')
+      if (heroSection) {
+        heroSection.scrollIntoView({ behavior: 'smooth' })
+      }
+      // Limpiar el state para que no vuelva a hacer scroll si cambia algo
+      window.history.replaceState({}, document.title)
+    }
+  }, [location])
+
   return (
-    <section className="hero-wrapper">
+    <section className="hero-wrapper" id="hero">
       <AnimatePresence>
         {!showContent && (
           <motion.div

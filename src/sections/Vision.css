@@ -3,18 +3,18 @@
   --verde-claro: #a2ce39;
   --blanco: #ffffff;
   --gris-claro: #dddddd;
+  --verde-bg: #f4f7f2;
+  --gris-oscuro: #333333;
 }
 
-/* Fondo general */
 .vision-wrapper {
   width: 100%;
-  background: var(--verde-oscuro);
-  padding: 4rem 1rem 3rem;
+  background: var(--verde-bg);
+  padding: 3rem 1rem 2rem; /* Márgenes reducidos arriba y abajo */
   position: relative;
   overflow: hidden;
 }
 
-/* Decoración flotante */
 .vision-decor-star {
   position: absolute;
   top: 20%;
@@ -32,7 +32,6 @@
   50% { transform: scale(1.5); opacity: 0.1; }
 }
 
-/* Contenedor */
 .vision-container {
   display: flex;
   flex-direction: row-reverse;
@@ -45,7 +44,6 @@
   z-index: 2;
 }
 
-/* Columnas */
 .vision-left,
 .vision-right {
   flex: 1;
@@ -57,7 +55,6 @@
   align-items: flex-start;
 }
 
-/* Lottie */
 .camera-lens-wrapper {
   position: relative;
   width: 700px;
@@ -110,7 +107,7 @@
   font-size: 3.2rem;
   font-weight: 700;
   font-family: 'Montserrat', sans-serif;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem; /* menos margen inferior */
   overflow: hidden;
   white-space: nowrap;
   position: relative;
@@ -121,21 +118,17 @@
   width: 60px;
   height: 4px;
   background: var(--verde-claro);
-  margin-bottom: 1.5rem;
-  animation: subrayado 2s ease-in-out forwards;
+  margin-bottom: 1rem;
+  transform-origin: center;
 }
 
-@keyframes subrayado {
-  from { width: 0; }
-  to { width: 60px; }
-}
-
+/* Cambié clase blanco por gris oscuro para texto */
 .verde {
   color: var(--verde-claro);
 }
 
-.blanco {
-  color: var(--blanco);
+.gris {
+  color: var(--gris-oscuro);
 }
 
 .cursor {
@@ -153,16 +146,19 @@
   100% { opacity: 0; }
 }
 
-/* Texto */
+/* Texto: tabulado con \u0009 (tab), sin sangría, color gris oscuro */
 .vision-text {
   font-size: 1.35rem;
   line-height: 1.9;
-  color: var(--gris-claro);
+  color: var(--gris-oscuro);
   max-width: 650px;
-  margin-top: 0.5rem;
+  margin-top: 0.25rem; /* menos margen arriba */
+  margin-bottom: 0.25rem; /* menos margen abajo */
   font-weight: 500;
   font-family: var(--font-texto-dm), 'DM Sans', sans-serif;
-  z-index: 2;
+  white-space: pre-line;
+  text-indent: 0;
+  tab-size: 4;
 }
 
 .vision-text strong {

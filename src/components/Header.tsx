@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import './Header.css';
+import { Link } from 'react-router-dom';
+
 
 const sections = [
-  { id: 'inicio' },
-  { id: 'quienes-somos' },
-  { id: 'productos' },
-  { id: 'servicios' },
-  { id: 'clientes' },
-  { id: 'contacto' },
+  { id: 'inicio', path: '#inicio' },
+  { id: 'quienes-somos', path: '#quienes-somos' },
+  { id: 'productos', path: '#productos' },
+  { id: 'servicios', path: '#servicios' },
+  { id: 'clientes', path: '#clientes' },
+  { id: 'contacto', path: '/contacto' },
 ];
+
 
 export default function Header() {
   const [currentSection, setCurrentSection] = useState('inicio');
@@ -52,8 +55,9 @@ export default function Header() {
             <ul>
               {sections.map((item) => (
                 <li key={item.id}>
+                  {item.path.startsWith('#') ? (
                   <a
-                    href={`#${item.id}`}
+                    href={item.path}
                     onClick={() => setMenuOpen(false)}
                     className={
                       isInicio
@@ -65,6 +69,22 @@ export default function Header() {
                   >
                     {item.id.replace('-', ' ').toUpperCase()}
                   </a>
+                ) : (
+                  <Link
+                    to={item.path}
+                    onClick={() => setMenuOpen(false)}
+                    className={
+                      isInicio
+                        ? 'nav-link-white'
+                        : currentSection === item.id
+                        ? 'nav-link-dark active'
+                        : 'nav-link-dark'
+                    }
+                  >
+                    {item.id.replace('-', ' ').toUpperCase()}
+                  </Link>
+                )}
+
                 </li>
               ))}
             </ul>

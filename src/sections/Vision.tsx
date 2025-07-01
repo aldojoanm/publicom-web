@@ -18,6 +18,7 @@ export default function Vision() {
       animate={inView ? { opacity: 1 } : {}}
       transition={{ duration: 1 }}
       ref={ref}
+      style={{ position: 'relative' }}
     >
       {/* Estrella decorativa flotante */}
       <div className="vision-decor-star" />
@@ -30,15 +31,21 @@ export default function Vision() {
           transition={{ duration: 1, delay: 0.2 }}
         >
           {inView && <TypeWriter text="Nuestra VISIÓN" />}
-          <div className="vision-underline" />
+          <motion.div
+            className="vision-underline"
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 1, ease: 'easeOut' }}
+            style={{ transformOrigin: 'center' }}
+          />
           <motion.p
             className="vision-text"
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 1 }}
           >
-            Somos el aliado ideal en la difusión de mensajes publicitarios. Aportamos <strong>creatividad</strong>, 
-            <strong> efectividad</strong> y <strong>compromiso</strong> para lograr los objetivos de nuestros clientes. 
+            {'\u0009'}Somos el aliado ideal en la difusión de mensajes publicitarios. Aportamos <strong>creatividad</strong>,{' '}
+            <strong>efectividad</strong> y <strong>compromiso</strong> para lograr los objetivos de nuestros clientes.{' '}
             Nuestra visión es construir impacto real a través de cada mensaje.
           </motion.p>
         </motion.div>
@@ -62,11 +69,7 @@ export default function Vision() {
             }}
           >
             <div className="camera-lens-inner">
-              <Lottie
-                animationData={cameraLottie}
-                loop
-                className="lottie-camera"
-              />
+              <Lottie animationData={cameraLottie} loop className="lottie-camera" />
             </div>
             <div className="lente-brillo" />
           </motion.div>
@@ -103,7 +106,7 @@ function TypeWriter({ text }: { text: string }) {
   return (
     <h2 className="vision-title">
       <span className="verde">{firstWordDisplayed}</span>
-      <span className="blanco">{restDisplayed}</span>
+      <span className="gris">{restDisplayed}</span>
       <span className="cursor" style={{ opacity: !done ? 1 : 0 }} />
     </h2>
   )

@@ -1,5 +1,5 @@
 .servicios-wrapper {
-  background-color: #003c3e;
+  background-color: #f4f7f2;
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -30,7 +30,7 @@
 }
 
 .blanco {
-  color: #ffffff;
+  color: #333;
 }
 
 @keyframes blink {
