@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { motion } from 'framer-motion'
+import { useState } from 'react'
+import { motion, easeInOut, easeOut } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import './Contacto.css'
 
@@ -26,9 +26,7 @@ export default function Contacto() {
   const { ref: refMensaje, inView: inViewMensaje } = useInView({ triggerOnce: true, threshold: 0.3 })
   const { ref: refButton, inView: inViewButton } = useInView({ triggerOnce: true, threshold: 0.3 })
 
-  const validarEmail = (email: string) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-  }
+  const validarEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 
   const validar = () => {
     const newErrors: Partial<FormData> = {}
@@ -65,14 +63,14 @@ export default function Contacto() {
 
   const inputVariants = {
     hidden: { opacity: 0, x: -30 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.5, ease: easeOut } },
   }
 
   const errorVariants = {
     initial: { x: 0 },
     animate: {
       x: [0, -6, 6, -6, 6, 0],
-      transition: { duration: 0.4, ease: 'easeInOut' },
+      transition: { duration: 0.4, ease: easeInOut },
     },
   }
 
@@ -207,7 +205,7 @@ export default function Contacto() {
                 : '0 0 0px 0px transparent'
               : '0 0 0 0 transparent',
           }}
-          transition={{ duration: 1, yoyo: Infinity }}
+          transition={{ duration: 1, repeat: Infinity, repeatType: 'mirror' }}
           aria-live="polite"
         >
           {loading ? 'Enviando...' : 'Enviar'}
