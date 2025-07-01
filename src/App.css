@@ -1,0 +1,25 @@
+:root {
+  --verde-oscuro: #003c3e;
+  --verde-claro: #a2ce39;
+  --blanco: #ffffff;
+  --gris-oscuro: #222222;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: 'Lato', sans-serif;
+  background-color: var(--verde-oscuro);
+  color: var(--blanco);
+  scroll-behavior: smooth;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
