@@ -27,13 +27,17 @@ function TypingText({
 }) {
   const [displayedCount, setDisplayedCount] = React.useState(0);
 
-  // Función para extraer texto plano del children recursivamente
   function extractText(node: React.ReactNode): string {
     if (typeof node === "string") return node;
     if (Array.isArray(node)) return node.map(extractText).join("");
-    if (React.isValidElement(node)) return extractText(node.props.children);
+    if (React.isValidElement(node)) {
+    const element = node as React.ReactElement<any, any>;
+    return extractText(element.props.children);
+  }
+
     return "";
   }
+
 
   const fullText = extractText(children);
 
