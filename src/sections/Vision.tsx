@@ -2,7 +2,7 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import Lottie from 'lottie-react'
-import cameraLottie from '@assets/Lottie/camera.json'
+import cameraLottie from '@assets/Lottie/Camera.json'
 import './Vision.css'
 
 export default function Vision() {
