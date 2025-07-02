@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
 import {
