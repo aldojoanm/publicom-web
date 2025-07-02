@@ -1,5 +1,5 @@
 // Eventos.tsx
-import React from 'react';
+
 import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
 import { FaMicrophoneAlt, FaUsers, FaBullhorn, FaCalendarAlt } from 'react-icons/fa';
@@ -27,8 +27,13 @@ const eventosData = [
     descripcion: 'Lanzamientos impactantes y profesionales para nuevas propuestas de mercado.',
   },
 ];
+type EventoProps = {
+  icono: React.ReactNode;
+  titulo: string;
+  descripcion: string;
+};
 
-function BloqueEvento({ icono, titulo, descripcion }) {
+function BloqueEvento({ icono, titulo, descripcion }: EventoProps) {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.4 });
 
   return (

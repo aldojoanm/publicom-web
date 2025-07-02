@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ChangeEvent, FormEvent, use } from 'react'
+import { useState, useEffect, type ChangeEvent, type FormEvent } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Iphone from '../components/Iphone'
 import { useNavigate } from 'react-router-dom'

@@ -10,7 +10,7 @@
 .vision-wrapper {
   width: 100%;
   background: var(--verde-bg);
-  padding: 3rem 1rem 2rem; /* Márgenes reducidos arriba y abajo */
+  padding: 1.5rem 1rem 2rem;
   position: relative;
   overflow: hidden;
 }

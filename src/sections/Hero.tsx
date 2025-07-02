@@ -10,7 +10,7 @@ export default function Hero() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowContent(true)
-    }, 18000)
+    }, 10000)
 
     return () => clearTimeout(timer)
   }, [])
@@ -47,7 +47,7 @@ export default function Hero() {
               preload="auto"
               className="hero-video-element"
             >
-              <source src="/video/intro2.mp4" type="video/mp4" />
+              <source src="/video/CamaraWeb.mp4" type="video/mp4" />
               Tu navegador no soporta video HTML5.
             </video>
           </motion.div>
@@ -63,7 +63,7 @@ export default function Hero() {
         >
           <div className="hero-left">
             <motion.img
-              src="/images/camara1.png"
+              src="/images/nuevohero.png"
               alt="Hombre grabando"
               className="hero-full-image"
               initial={{ scale: 1.05 }}

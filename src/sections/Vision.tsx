@@ -44,9 +44,10 @@ export default function Vision() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 1 }}
           >
-            {'\u0009'}Somos el aliado ideal en la difusión de mensajes publicitarios. Aportamos <strong>creatividad</strong>,{' '}
-            <strong>efectividad</strong> y <strong>compromiso</strong> para lograr los objetivos de nuestros clientes.{' '}
-            Nuestra visión es construir impacto real a través de cada mensaje.
+            {'\u0009'}Somos el aliado ideal en la difusión de mensajes publicitarios. Aportamos{' '}
+            <strong>creatividad</strong>, <strong>efectividad</strong> y <strong>compromiso</strong>{' '}
+            para lograr los objetivos de nuestros clientes. Nuestra visión es construir impacto real
+            a través de cada mensaje.
           </motion.p>
         </motion.div>
 
