@@ -287,3 +287,15 @@
     font-size: 1.6rem;
   }
 }
+
+.hero-floating-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50px;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  filter: drop-shadow(0 0 10px var(--verde-claro));
+  pointer-events: none;
+  user-select: none;
+}

@@ -5,24 +5,24 @@ import { useLocation } from 'react-router-dom'
 
 export default function Hero() {
   const [showContent, setShowContent] = useState(false)
+  const [showFloatingLogo, setShowFloatingLogo] = useState(true)
   const location = useLocation()
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowContent(true)
+      setShowFloatingLogo(false)
     }, 10000)
 
     return () => clearTimeout(timer)
   }, [])
 
-  // Scroll al hero si location.state.scrollToHero es true
   useEffect(() => {
     if (location.state?.scrollToHero) {
       const heroSection = document.getElementById('hero')
       if (heroSection) {
         heroSection.scrollIntoView({ behavior: 'smooth' })
       }
-      // Limpiar el state para que no vuelva a hacer scroll si cambia algo
       window.history.replaceState({}, document.title)
     }
   }, [location])
@@ -50,6 +50,21 @@ export default function Hero() {
               <source src="/video/CamaraWeb.mp4" type="video/mp4" />
               Tu navegador no soporta video HTML5.
             </video>
+
+            <AnimatePresence>
+              {showFloatingLogo && (
+                <motion.img
+                  src="/logos/p-logo.png"
+                  alt="Logo Publicom"
+                  className="hero-floating-logo"
+                  initial={{ scale: 0.3, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ opacity: 0, scale: 0.5 }}
+                  transition={{ duration: 1.5 }}
+                  draggable={false}
+                />
+              )}
+            </AnimatePresence>
           </motion.div>
         )}
       </AnimatePresence>
@@ -90,21 +105,20 @@ export default function Hero() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1.0, duration: 0.3 }}
                 >
-                  MARKETING,&nbsp;
+                  PUBLICIDAD&nbsp;
                 </motion.span>
                 <motion.span
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1.3, duration: 0.3 }}
                 >
-                  PUBLICIDAD&nbsp;
+                  Y&nbsp;
                 </motion.span>
                 <motion.span
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1.6, duration: 0.3 }}
                 >
-                  Y
                 </motion.span>
               </div>
 
@@ -114,7 +128,7 @@ export default function Hero() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 2.0, duration: 0.4 }}
               >
-                PRODUCCIÓN AUDIOVISUAL
+                COMUNICACIÓN
               </motion.p>
             </div>
 

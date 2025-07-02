@@ -15,7 +15,7 @@
   top: 0;
   width: 100%;
   z-index: 999;
-  padding: 0.6rem 1rem 0.6rem 1rem; /* logo más a la izquierda */
+  padding: 0.3rem 0.5rem; /* logo más a la izquierda */
   transition:
     background-color 0.3s ease,
     box-shadow 0.3s ease,
@@ -36,10 +36,8 @@
 
 /* ESTILO AL HACER SCROLL */
 .header.scrolled {
-  background-color: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: #f8f8f8;
+  box-shadow: 0 8px 10px rgba(0, 0, 0, 0.382);
   color: var(--gris-oscuro);
 }
 
@@ -62,7 +60,7 @@
 }
 
 .logo-img {
-  height: 50px;
+  height: 40px;
   width: auto;
   object-fit: contain;
   transition: filter 0.3s ease;

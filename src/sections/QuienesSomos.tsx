@@ -107,9 +107,6 @@ export default function Quienes() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Línea divisoria absoluta al final */}
-      <div className="qs-divider" />
     </motion.div>
   )
 }

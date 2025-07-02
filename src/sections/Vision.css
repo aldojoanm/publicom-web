@@ -6,13 +6,18 @@
   --verde-bg: #f4f7f2;
   --gris-oscuro: #333333;
 }
-
+.vision-wrapper h2,
+.vision-wrapper p{
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
 .vision-wrapper {
-  width: 100%;
+  width: 100% !important;
   background: var(--verde-bg);
-  padding: 1.5rem 1rem 2rem;
+  padding: 0 !important;
   position: relative;
   overflow: hidden;
+  margin-top: -150px; 
 }
 
 .vision-decor-star {
@@ -39,7 +44,7 @@
   justify-content: space-between;
   max-width: 1200px;
   margin: 0 auto;
-  gap: 4rem;
+  gap: 2rem;
   flex-wrap: wrap;
   z-index: 2;
 }
@@ -57,8 +62,8 @@
 
 .camera-lens-wrapper {
   position: relative;
-  width: 700px;
-  height: 700px;
+  width: 500px;
+  height: 500px;
   user-select: none;
   overflow: hidden;
   display: flex;
@@ -68,23 +73,13 @@
 }
 
 .camera-lens-inner {
-  transform: scale(1.4);
+  transform: scale(2.5);
   transform-origin: center;
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.lente-brillo {
-  position: absolute;
-  width: 160%;
-  height: 160%;
-  border: 2px dashed rgba(162, 206, 57, 0.2);
-  border-radius: 50%;
-  animation: girar 20s linear infinite;
-  z-index: 0;
 }
 
 @keyframes girar {
@@ -152,8 +147,8 @@
   line-height: 1.9;
   color: var(--gris-oscuro);
   max-width: 650px;
-  margin-top: 0.25rem; /* menos margen arriba */
-  margin-bottom: 0.25rem; /* menos margen abajo */
+  margin-top: 0.1rem; /* menos margen arriba */
+  margin-bottom: 0.1rem; /* menos margen abajo */
   font-weight: 500;
   font-family: var(--font-texto-dm), 'DM Sans', sans-serif;
   white-space: pre-line;

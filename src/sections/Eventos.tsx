@@ -1,8 +1,9 @@
-// Eventos.tsx
-
-import { useInView } from 'react-intersection-observer';
-import { motion } from 'framer-motion';
-import { FaMicrophoneAlt, FaUsers, FaBullhorn, FaCalendarAlt } from 'react-icons/fa';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  FaMicrophoneAlt, FaUsers, FaBullhorn, FaCalendarAlt,
+  FaChevronLeft, FaChevronRight
+} from 'react-icons/fa';
 import './Eventos.css';
 
 const eventosData = [
@@ -10,86 +11,164 @@ const eventosData = [
     icono: <FaMicrophoneAlt size={48} color="#a2ce39" />,
     titulo: 'Conferencias',
     descripcion: 'Organizamos conferencias profesionales para potenciar el conocimiento y networking.',
+    media: 'https://drive.google.com/file/d/1YRAucRgM1YXdSs1lMt-TFzr4RjWz_wj/preview',
   },
   {
     icono: <FaUsers size={48} color="#a2ce39" />,
     titulo: 'Seminarios y Simposios',
     descripcion: 'Eventos académicos y profesionales con expertos y líderes de la industria.',
+    media: 'https://drive.google.com/file/d/1YRAucRgM1YXdSs1lMt-TFzr4RjWz_wj/preview',
   },
   {
     icono: <FaBullhorn size={48} color="#a2ce39" />,
     titulo: 'Ferias',
     descripcion: 'Exhibiciones comerciales para presentar productos y servicios a gran escala.',
+    media: 'https://drive.google.com/file/d/1YRAucRgM1YXdSs1lMt-TFzr4RjWz_wj/preview',
   },
   {
     icono: <FaCalendarAlt size={48} color="#a2ce39" />,
     titulo: 'Presentaciones de Productos',
     descripcion: 'Lanzamientos impactantes y profesionales para nuevas propuestas de mercado.',
+    media: 'https://drive.google.com/file/d/1YRAucRgM1YXdSs1lMt-TFzr4RjWz_wj/preview',
   },
 ];
-type EventoProps = {
-  icono: React.ReactNode;
-  titulo: string;
-  descripcion: string;
+
+// Easing para animación
+const easeInOut: [number, number, number, number] = [0.42, 0, 0.58, 1];
+
+const variants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? 300 : -300,
+    opacity: 0,
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+    transition: { duration: 0.4, ease: easeInOut },
+  },
+  exit: (direction: number) => ({
+    x: direction < 0 ? 300 : -300,
+    opacity: 0,
+    transition: { duration: 0.4, ease: easeInOut },
+  }),
 };
 
-function BloqueEvento({ icono, titulo, descripcion }: EventoProps) {
-  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.4 });
-
-  return (
-    <motion.div
-      ref={ref}
-      className="bloque-evento"
-      initial={{ opacity: 0, y: 60 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, ease: 'easeOut' }}
-      whileHover={{ scale: 1.05, boxShadow: '0 10px 20px rgba(162,206,57,0.4)', cursor: 'pointer' }}
-    >
-      <motion.div
-        className="icono-evento"
-        initial={{ scale: 0 }}
-        animate={inView ? { scale: 1, rotate: 360 } : {}}
-        transition={{ duration: 0.7, ease: 'easeOut' }}
-      >
-        {icono}
-      </motion.div>
-      <motion.div
-        className="contenido-evento"
-        initial={{ opacity: 0, y: 20 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.7, ease: 'easeOut', delay: 0.2 }}
-      >
-        <h3>{titulo}</h3>
-        <p>{descripcion}</p>
-      </motion.div>
-    </motion.div>
-  );
-}
-
 export default function Eventos() {
+  const [[page, direction], setPage] = useState<[number, number]>([0, 0]);
+  const eventCount = eventosData.length;
+
+  const paginate = (newDirection: number) => {
+    setPage(([currentPage]) => {
+      let newPage = currentPage + newDirection;
+      if (newPage < 0) newPage = 0;
+      if (newPage >= eventCount) newPage = eventCount - 1;
+      return [newPage, newDirection];
+    });
+  };
+
+  const goToPage = (pageNumber: number) => {
+    setPage(([currentPage]) => {
+      if (pageNumber === currentPage) return [currentPage, 0];
+      return [pageNumber, pageNumber > currentPage ? 1 : -1];
+    });
+  };
+
+  // Función para abrir media en nueva pestaña al hacer clic
+  const abrirLink = (url: string) => {
+    window.open(url.replace('/preview', ''), '_blank');
+  };
+
   return (
     <section id="eventos" className="eventos-container">
-      <motion.h2
-        className="eventos-title"
-        initial={{ opacity: 0, y: -30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        EVENTOS
-      </motion.h2>
-      <motion.p
-        className="eventos-subtitulo"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3, duration: 0.8 }}
-      >
-        Realizamos todo tipo de eventos corporativos y profesionales.
-      </motion.p>
+      <div className="eventos-content">
+        <div className="eventos-texto">
+          <h2 className="eventos-title">Transformamos tus ideas en experiencias</h2>
+          <p className="eventos-subtitulo">
+            {'\u0009'}Somos expertos en crear momentos memorables para tu marca. Desde lanzamientos hasta
+            conferencias, organizamos <strong>eventos profesionales</strong><br /> que inspiran e impactan.
+          </p>
+        </div>
 
-      <div className="eventos-lista">
-        {eventosData.map((evento, idx) => (
-          <BloqueEvento key={idx} {...evento} />
-        ))}
+        <div className="carousel-wrapper">
+          <button
+            className="carousel-btn left"
+            onClick={() => paginate(-1)}
+            aria-label="Mover izquierda"
+            disabled={page === 0}
+          >
+            <FaChevronLeft size={28} />
+          </button>
+
+          <div className="carousel-inner">
+            <div className="eventos-lista" style={{ position: 'relative', width: 420, height: 520 }}>
+              <AnimatePresence custom={direction} initial={false}>
+                <motion.div
+                  key={page}
+                  custom={direction}
+                  variants={variants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  className="bloque-evento"
+                  style={{ position: 'absolute', top: 0, left: 0, width: '100%' }}
+                >
+                  <div className="icono-evento">{eventosData[page].icono}</div>
+                  <div className="contenido-evento">
+                    <h3>{eventosData[page].titulo}</h3>
+                    <p>{eventosData[page].descripcion}</p>
+                  </div>
+                  <div
+                    className="media-container"
+                    onClick={() => abrirLink(eventosData[page].media)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') abrirLink(eventosData[page].media);
+                    }}
+                    aria-label={`Abrir media de ${eventosData[page].titulo}`}
+                    title="Abrir enlace"
+                  >
+                    {/* Mostrar iframe embebido de Drive como preview */}
+                    <iframe
+                      src={eventosData[page].media}
+                      width="380"
+                      height="200"
+                      frameBorder="0"
+                      allow="autoplay; encrypted-media"
+                      allowFullScreen
+                      title={`Media ${eventosData[page].titulo}`}
+                    />
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            <div className="pagination-dots">
+              {eventosData.map((_, i) => (
+                <span
+                  key={i}
+                  className={`dot ${i === page ? 'active' : ''}`}
+                  onClick={() => goToPage(i)}
+                  aria-label={`Ir a la página ${i + 1}`}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') goToPage(i);
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+
+          <button
+            className="carousel-btn right"
+            onClick={() => paginate(1)}
+            aria-label="Mover derecha"
+            disabled={page === eventCount - 1}
+          >
+            <FaChevronRight size={28} />
+          </button>
+        </div>
       </div>
     </section>
   );

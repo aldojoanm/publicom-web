@@ -2,68 +2,124 @@
   --verde-oscuro: #003c3e;
   --verde-claro: #a2ce39;
   --blanco: #ffffff;
+  --fondo-gradiente: radial-gradient(circle at center, #004447 0%, #002926 90%);
 }
 
 .clientes-section {
-  padding: 4rem 1.5rem;
-  max-width: 1200px;
-  margin: auto;
-  background-color: var(--verde-oscuro);
+  width: 100vw;
+  height: 100vh;
+  padding: 4rem 2rem 6rem;
+  margin: 0 auto;
+  background: var(--fondo-gradiente);
   color: var(--blanco);
   text-align: center;
   user-select: none;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .clientes-title {
   font-family: 'Montserrat', sans-serif;
   font-weight: 900;
-  font-size: 2.5rem;
-  margin-bottom: 2rem;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  margin-bottom: 2.5rem;
   letter-spacing: 0.05em;
   color: var(--blanco);
+  position: relative;
+  display: inline-block;
+  cursor: default;
+}
+
+.clientes-title .highlight {
+  color: var(--verde-claro);
+  position: relative;
+}
+
+.clientes-title .highlight::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--verde-claro);
+  border-radius: 3px;
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+
+.clientes-title:hover .highlight::after,
+.clientes-title:focus-within .highlight::after {
+  transform: scaleX(1);
 }
 
 .clientes-logos {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  grid-auto-flow: dense;
-  gap: 2.5rem;
+  grid-template-columns: repeat(5, 1fr); /* Siempre 5 logos por fila */
+  gap: 2.8rem;
   align-items: center;
   justify-items: center;
+  width: 100%;
+  max-width: 1200px;
+  transition: transform 0.3s ease;
+  will-change: transform;
 }
 
 .clientes-logo {
-  max-width: 180px;
+  max-width: 160px;
   max-height: 100px;
   object-fit: contain;
-  filter: grayscale(60%);
-  transition: filter 0.3s ease, transform 0.3s ease;
+  filter: grayscale(70%);
+  transition:
+    filter 0.4s ease,
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease;
   cursor: pointer;
   user-select: none;
   outline-offset: 3px;
-  will-change: transform, opacity;
+  
+  /* Quitar caja / fondo / borde */
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
 }
 
 .clientes-logo:hover,
 .clientes-logo:focus {
   filter: grayscale(0%);
+  transform: translateY(-6px) scale(1.1);
+  box-shadow: 0 10px 20px rgba(162, 206, 57, 0.7);
   outline: none;
+  background: transparent !important;
+  border: none !important;
 }
 
 /* Accesibilidad: foco visible */
 .clientes-logo:focus-visible {
   outline: 2px solid var(--verde-claro);
+  outline-offset: 4px;
 }
 
 /* Responsividad */
+@media (max-width: 1200px) {
+  .clientes-logos {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
 
 @media (max-width: 1024px) {
   .clientes-logos {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
   }
   .clientes-logo {
-    max-width: 150px;
-    max-height: 90px;
+    max-width: 140px;
+    max-height: 85px;
   }
 }
 
@@ -72,20 +128,21 @@
     font-size: 2rem;
   }
   .clientes-logos {
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
   }
   .clientes-logo {
-    max-width: 130px;
-    max-height: 80px;
+    max-width: 120px;
+    max-height: 75px;
   }
 }
 
 @media (max-width: 480px) {
   .clientes-title {
-    font-size: 1.75rem;
+    font-size: 1.6rem;
   }
   .clientes-logos {
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
   }
   .clientes-logo {
     max-width: 100px;
