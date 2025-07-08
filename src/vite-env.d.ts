@@ -9,3 +9,8 @@ declare module '*.png';
 declare module '*.jpg';
 declare module '*.jpeg';
 declare module '*.svg';
+
+declare module 'fullpage.js' {
+  const fullpage: any;
+  export default fullpage;
+}

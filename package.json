@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "@rive-app/react-canvas": "^4.21.4",
-    "framer-motion": "^12.19.2",
+    "framer-motion": "^12.23.0",
+    "fullpage": "^1.5.1",
+    "fullpage.js": "^4.0.37",
     "gsap": "^3.13.0",
     "lottie-react": "^2.4.1",
     "motion": "^12.19.2",
@@ -25,6 +27,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",
+    "@types/fullpage.js": "^2.9.6",
     "@types/node": "^24.0.10",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",

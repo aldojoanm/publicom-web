@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   FaMicrophoneAlt, FaUsers, FaBullhorn, FaCalendarAlt,
@@ -73,7 +73,19 @@ export default function Eventos() {
     });
   };
 
-  // Función para abrir media en nueva pestaña al hacer clic
+  // Auto paginación cada 4 segundos
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPage(([currentPage]) => {
+        const nextPage = currentPage + 1 >= eventCount ? 0 : currentPage + 1;
+        return [nextPage, 1];
+      });
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [eventCount]);
+
+  // Función para abrir media en nueva pestaña
   const abrirLink = (url: string) => {
     window.open(url.replace('/preview', ''), '_blank');
   };
