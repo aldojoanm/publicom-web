@@ -12,22 +12,22 @@ export default function Merchandising() {
     {
       title: 'Diseño de Stands',
       description: 'Estructuras personalizadas para exhibiciones memorables.',
-      image: '/megaprint/stand.png'
+      image: '/megaprint/stand.png',
     },
     {
       title: 'Vallas Publicitarias',
       description: 'Publicidad exterior con gran impacto visual.',
-      image: '/megaprint/valla.png'
+      image: '/megaprint/valla.png',
     },
     {
       title: 'Catálogos Empresariales',
       description: 'Muestras elegantes y organizadas de tus productos o servicios.',
-      image: '/megaprint/catalogo.png'
+      image: '/megaprint/catalogo.png',
     },
     {
       title: 'Revistas y Folletos',
       description: 'Material editorial atractivo y profesional.',
-      image: '/megaprint/revista.png'
+      image: '/megaprint/revista.png',
     },
   ];
 
@@ -37,47 +37,52 @@ export default function Merchandising() {
       examples: [
         { src: '/megaprint/polera.png', alt: 'Polera ejemplo 1' },
         { src: '/megaprint/polera.png', alt: 'Polera ejemplo 2' },
-      ]
+      ],
     },
     {
       main: { src: '/megaprint/gorra.png', alt: 'Gorra' },
       examples: [
         { src: '/megaprint/gorra.png', alt: 'Gorra ejemplo 1' },
         { src: '/megaprint/gorra.png', alt: 'Gorra ejemplo 2' },
-      ]
+      ],
     },
     {
       main: { src: '/megaprint/llavero.png', alt: 'Llavero' },
       examples: [
         { src: '/megaprint/llavero.png', alt: 'Llavero ejemplo 1' },
         { src: '/megaprint/llavero.png', alt: 'Llavero ejemplo 2' },
-      ]
+      ],
     },
     {
       main: { src: '/megaprint/lapicero.png', alt: 'Lapicero' },
       examples: [
         { src: '/megaprint/lapicero.png', alt: 'Lapicero ejemplo 1' },
         { src: '/megaprint/lapicero.png', alt: 'Lapicero ejemplo 2' },
-      ]
+      ],
     },
   ];
 
-useEffect(() => {
-  new fullpage('#fullpage', {
-    autoScrolling: true,
-    navigation: true,
-    anchors: ['material', 'merchandising', 'adhesivos'],
-    navigationTooltips: ['Material Publicitario', 'Merchandising', 'Rotulados'],
-    showActiveTooltip: true,
-    scrollingSpeed: 1000,
-    afterRender: () => {
-      document.querySelectorAll('.section').forEach((el) => {
-        (el as HTMLElement).style.height = '100vh';
-      });
-    },
-  });
-}, []);
+  // ✅ Inicializar fullpage.js y destruirlo al desmontar
+  useEffect(() => {
+    const instance = new fullpage('#fullpage', {
+      autoScrolling: true,
+      navigation: true,
+      anchors: ['material', 'merchandising', 'adhesivos'],
+      navigationTooltips: ['Material Publicitario', 'Merchandising', 'Rotulados'],
+      showActiveTooltip: true,
+      scrollingSpeed: 1000,
+      licenseKey: 'gplv3-license',
+      afterRender: () => {
+        document.querySelectorAll('.section').forEach((el) => {
+          (el as HTMLElement).style.height = '100vh';
+        });
+      },
+    });
 
+    return () => {
+      instance.destroy('all'); // ✅ Muy importante para no romper otras páginas
+    };
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -164,18 +169,19 @@ useEffect(() => {
                 transition={{ duration: 0.5 }}
                 draggable={false}
               />
-              {openedIndex === i && item.examples.map((ex, exIdx) => (
-                <motion.img
-                  key={exIdx}
-                  src={ex.src}
-                  alt={ex.alt}
-                  className={`item example example-${exIdx}`}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.4, delay: 0.1 * exIdx }}
-                  draggable={false}
-                />
-              ))}
+              {openedIndex === i &&
+                item.examples.map((ex, exIdx) => (
+                  <motion.img
+                    key={exIdx}
+                    src={ex.src}
+                    alt={ex.alt}
+                    className={`item example example-${exIdx}`}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, delay: 0.1 * exIdx }}
+                    draggable={false}
+                  />
+                ))}
             </div>
           ))}
         </div>
@@ -184,53 +190,52 @@ useEffect(() => {
       {/* ROTULADOS VEHICULARES */}
       <section className="section section-vehicular">
         <div className="vehicular-wrapper">
-        <motion.h2
-          className="section-title"
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7 }}
-        >
-          ROTULADOS VEHICULARES
-        </motion.h2>
-        <motion.p
-          className="section-text"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-        >
-          Convertimos tus vehículos en publicidad móvil de alto impacto, con diseños únicos y personalizados para cada ángulo.
-        </motion.p>
+          <motion.h2
+            className="section-title"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7 }}
+          >
+            ROTULADOS VEHICULARES
+          </motion.h2>
+          <motion.p
+            className="section-text"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+          >
+            Convertimos tus vehículos en publicidad móvil de alto impacto, con diseños únicos y personalizados para cada ángulo.
+          </motion.p>
 
-        {/* Imágenes posicionadas sin contenedores extras */}
-        <motion.img
-          src="/megaprint/lateral.png"
-          alt="Lateral Camioneta"
-          className="vehiculo lateral-central"
-          initial={{ opacity: 0, scale: 0.7, x: 200 }}
-          animate={{ opacity: 1, scale: 1, x: 0 }}
-          transition={{ delay: 0.6, duration: 0.8, ease: "easeOut" }}
-          draggable={false}
-        />
+          <motion.img
+            src="/megaprint/lateral.png"
+            alt="Lateral Camioneta"
+            className="vehiculo lateral-central"
+            initial={{ opacity: 0, scale: 0.7, x: 200 }}
+            animate={{ opacity: 1, scale: 1, x: 0 }}
+            transition={{ delay: 0.6, duration: 0.8, ease: 'easeOut' }}
+            draggable={false}
+          />
 
-        <motion.img
-          src="/megaprint/frontal.png"
-          alt="Frontal"
-          className="vehiculo frontal"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.9, duration: 0.6 }}
-          draggable={false}
-        />
+          <motion.img
+            src="/megaprint/frontal.png"
+            alt="Frontal"
+            className="vehiculo frontal"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9, duration: 0.6 }}
+            draggable={false}
+          />
 
-        <motion.img
-          src="/megaprint/trasera.png"
-          alt="Trasera"
-          className="vehiculo trasera"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.1, duration: 0.6 }}
-          draggable={false}
-        />
+          <motion.img
+            src="/megaprint/trasera.png"
+            alt="Trasera"
+            className="vehiculo trasera"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.1, duration: 0.6 }}
+            draggable={false}
+          />
         </div>
       </section>
     </div>
