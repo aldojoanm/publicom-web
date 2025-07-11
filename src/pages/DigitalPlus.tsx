@@ -1,4 +1,3 @@
-import React from 'react'
 import { motion } from 'framer-motion'
 import Lottie from 'lottie-react'
 import cameraLottie from '@assets/Lottie/Web.json'
